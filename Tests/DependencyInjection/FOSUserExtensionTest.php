@@ -125,9 +125,7 @@ class FOSUserExtensionTest extends TestCase
         $this->assertNotHasDefinition('fos_user.profile.form.factory');
     }
 
-    /**
-     * @dataProvider providerEmailsDisabledFeature
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEmailsDisabledFeature')]
     public function testEmailsDisabledFeature($testConfig, $registration, $resetting)
     {
         $this->configuration = new ContainerBuilder();
@@ -301,11 +299,11 @@ class FOSUserExtensionTest extends TestCase
     }
 
     /**
-     * @dataProvider userManagerSetFactoryProvider
      *
      * @param $dbDriver
      * @param $doctrineService
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('userManagerSetFactoryProvider')]
     public function testUserManagerSetFactory($dbDriver, $doctrineService)
     {
         $this->configuration = new ContainerBuilder();
@@ -321,7 +319,7 @@ class FOSUserExtensionTest extends TestCase
         if (method_exists($definition, 'getFactory')) {
             $factory = $definition->getFactory();
 
-            $this->assertInstanceOf('Symfony\Component\DependencyInjection\Reference', $factory[0]);
+            $this->assertInstanceOf(\Symfony\Component\DependencyInjection\Reference::class, $factory[0]);
             $this->assertSame('fos_user.doctrine_registry', (string) $factory[0]);
             $this->assertSame('getManager', $factory[1]);
         } else {

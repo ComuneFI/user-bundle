@@ -12,10 +12,8 @@
 namespace FOS\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
@@ -30,17 +28,14 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  */
 class SecurityController extends AbstractController
 {
-    private $tokenManager;
-
-    public function __construct(CsrfTokenManagerInterface $tokenManager = null)
+    public function __construct(private readonly ?\Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $tokenManager = null)
     {
-        $this->tokenManager = $tokenManager;
     }
 
     /**
      * @return Response
      */
-    public function loginAction(Request $request)
+    public function login(Request $request)
     {
         /** @var $session Session */
         $session = $request->getSession();
@@ -76,12 +71,12 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    public function checkAction()
+    public function check(): never
     {
         throw new \RuntimeException('You must configure the check path to be handled by the firewall using form_login in your security firewall configuration.');
     }
 
-    public function logoutAction()
+    public function logout(): never
     {
         throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
     }

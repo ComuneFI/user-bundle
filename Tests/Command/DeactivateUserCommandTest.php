@@ -37,7 +37,7 @@ class DeactivateUserCommandTest extends TestCase
     {
         $application = new Application();
 
-        $helper = $this->getMockBuilder('Symfony\Component\Console\Helper\QuestionHelper')
+        $helper = $this->getMockBuilder(\Symfony\Component\Console\Helper\QuestionHelper::class)
             ->setMethods(['ask'])
             ->getMock();
 
@@ -82,7 +82,7 @@ class DeactivateUserCommandTest extends TestCase
      */
     private function getManipulator($username)
     {
-        $manipulator = $this->getMockBuilder('FOS\UserBundle\Util\UserManipulator')
+        $manipulator = $this->getMockBuilder(\FOS\UserBundle\Util\UserManipulator::class)
             ->disableOriginalConstructor()
             ->getMock();
 

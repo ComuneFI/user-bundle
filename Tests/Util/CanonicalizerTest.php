@@ -17,11 +17,11 @@ use PHPUnit\Framework\TestCase;
 class CanonicalizerTest extends TestCase
 {
     /**
-     * @dataProvider canonicalizeProvider
      *
      * @param $source
      * @param $expectedResult
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('canonicalizeProvider')]
     public function testCanonicalize($source, $expectedResult)
     {
         $canonicalizer = new Canonicalizer();

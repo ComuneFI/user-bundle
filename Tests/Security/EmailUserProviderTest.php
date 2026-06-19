@@ -28,13 +28,13 @@ class EmailUserProviderTest extends TestCase
 
     protected function setUp()
     {
-        $this->userManager = $this->getMockBuilder('FOS\UserBundle\Model\UserManagerInterface')->getMock();
+        $this->userManager = $this->getMockBuilder(\FOS\UserBundle\Model\UserManagerInterface::class)->getMock();
         $this->userProvider = new EmailUserProvider($this->userManager);
     }
 
     public function testLoadUserByUsername()
     {
-        $user = $this->getMockBuilder('FOS\UserBundle\Model\UserInterface')->getMock();
+        $user = $this->getMockBuilder(\FOS\UserBundle\Model\UserInterface::class)->getMock();
         $this->userManager->expects($this->once())
             ->method('findUserByUsernameOrEmail')
             ->with('foobar')
@@ -58,7 +58,7 @@ class EmailUserProviderTest extends TestCase
 
     public function testRefreshUserBy()
     {
-        $user = $this->getMockBuilder('FOS\UserBundle\Model\User')
+        $user = $this->getMockBuilder(\FOS\UserBundle\Model\User::class)
                     ->setMethods(['getId'])
                     ->getMock();
 
@@ -66,7 +66,7 @@ class EmailUserProviderTest extends TestCase
             ->method('getId')
             ->will($this->returnValue('123'));
 
-        $refreshedUser = $this->getMockBuilder('FOS\UserBundle\Model\UserInterface')->getMock();
+        $refreshedUser = $this->getMockBuilder(\FOS\UserBundle\Model\UserInterface::class)->getMock();
         $this->userManager->expects($this->once())
             ->method('findUserBy')
             ->with(['id' => '123'])
@@ -74,7 +74,7 @@ class EmailUserProviderTest extends TestCase
 
         $this->userManager->expects($this->atLeastOnce())
             ->method('getClass')
-            ->will($this->returnValue(get_class($user)));
+            ->will($this->returnValue($user::class));
 
         $this->assertSame($refreshedUser, $this->userProvider->refreshUser($user));
     }
@@ -84,7 +84,7 @@ class EmailUserProviderTest extends TestCase
      */
     public function testRefreshInvalidUser()
     {
-        $user = $this->getMockBuilder('Symfony\Component\Security\Core\User\UserInterface')->getMock();
+        $user = $this->getMockBuilder(\Symfony\Component\Security\Core\User\UserInterface::class)->getMock();
 
         $this->userProvider->refreshUser($user);
     }

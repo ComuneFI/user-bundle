@@ -55,6 +55,6 @@ class CanonicalFieldsUpdaterTest extends TestCase
 
     private function getMockCanonicalizer()
     {
-        return $this->getMockBuilder('FOS\UserBundle\Util\CanonicalizerInterface')->getMock();
+        return $this->getMockBuilder(\FOS\UserBundle\Util\CanonicalizerInterface::class)->getMock();
     }
 }

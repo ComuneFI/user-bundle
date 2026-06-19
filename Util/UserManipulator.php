@@ -28,30 +28,17 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class UserManipulator
 {
     /**
-     * User manager.
-     *
-     * @var UserManagerInterface
-     */
-    private $userManager;
-
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $dispatcher;
-
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
-
-    /**
      * UserManipulator constructor.
      */
-    public function __construct(UserManagerInterface $userManager, EventDispatcherInterface $dispatcher, RequestStack $requestStack)
+    public function __construct(
+        /**
+         * User manager.
+         */
+        private readonly UserManagerInterface $userManager,
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly RequestStack $requestStack
+    )
     {
-        $this->userManager = $userManager;
-        $this->dispatcher = $dispatcher;
-        $this->requestStack = $requestStack;
     }
 
     /**

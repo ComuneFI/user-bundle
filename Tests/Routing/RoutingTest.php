@@ -19,11 +19,11 @@ use Symfony\Component\Routing\RouteCollection;
 class RoutingTest extends TestCase
 {
     /**
-     * @dataProvider loadRoutingProvider
      *
      * @param string $routeName
      * @param string $path
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('loadRoutingProvider')]
     public function testLoadRouting($routeName, $path, array $methods)
     {
         $locator = new FileLocator();

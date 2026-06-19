@@ -24,7 +24,7 @@ class GetResponseNullableUserEvent extends GetResponseUserEvent
     /**
      * GetResponseNullableUserEvent constructor.
      */
-    public function __construct(UserInterface $user = null, Request $request)
+    public function __construct(UserInterface $user = null, ?Request $request = null)
     {
         $this->user = $user;
         $this->request = $request;

@@ -22,11 +22,8 @@ use Symfony\Component\Validator\ObjectInitializerInterface;
  */
 class Initializer implements ObjectInitializerInterface
 {
-    private $canonicalFieldsUpdater;
-
-    public function __construct(CanonicalFieldsUpdater $canonicalFieldsUpdater)
+    public function __construct(private readonly CanonicalFieldsUpdater $canonicalFieldsUpdater)
     {
-        $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
     }
 
     /**

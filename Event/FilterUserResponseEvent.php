@@ -17,15 +17,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FilterUserResponseEvent extends UserEvent
 {
-    private $response;
-
     /**
      * FilterUserResponseEvent constructor.
      */
-    public function __construct(UserInterface $user, Request $request, Response $response)
+    public function __construct(UserInterface $user, Request $request, private Response $response)
     {
         parent::__construct($user, $request);
-        $this->response = $response;
     }
 
     /**

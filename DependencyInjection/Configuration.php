@@ -68,9 +68,7 @@ class Configuration implements ConfigurationInterface
             ->end()
             // Using the custom driver requires changing the manager services
             ->validate()
-                ->ifTrue(function ($v) {
-                    return 'custom' === $v['db_driver'] && 'fos_user.user_manager.default' === $v['service']['user_manager'];
-                })
+                ->ifTrue(fn($v) => 'custom' === $v['db_driver'] && 'fos_user.user_manager.default' === $v['service']['user_manager'])
                 ->thenInvalid('You need to specify your own user manager service when using the "custom" driver.')
             ->end()
         ;
@@ -83,7 +81,7 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
-    private function addProfileSection(ArrayNodeDefinition $node)
+    private function addProfileSection(ArrayNodeDefinition $node):void
     {
         $node
             ->children()
@@ -108,7 +106,7 @@ class Configuration implements ConfigurationInterface
             ->end();
     }
 
-    private function addRegistrationSection(ArrayNodeDefinition $node)
+    private function addRegistrationSection(ArrayNodeDefinition $node):void
     {
         $node
             ->children()
@@ -146,7 +144,7 @@ class Configuration implements ConfigurationInterface
             ->end();
     }
 
-    private function addResettingSection(ArrayNodeDefinition $node)
+    private function addResettingSection(ArrayNodeDefinition $node):void
     {
         $node
             ->children()
@@ -185,7 +183,7 @@ class Configuration implements ConfigurationInterface
             ->end();
     }
 
-    private function addServiceSection(ArrayNodeDefinition $node)
+    private function addServiceSection(ArrayNodeDefinition $node):void
     {
         $node
             ->addDefaultsIfNotSet()

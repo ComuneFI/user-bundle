@@ -20,13 +20,8 @@ use FOS\UserBundle\Model\UserInterface;
  */
 class CanonicalFieldsUpdater
 {
-    private $usernameCanonicalizer;
-    private $emailCanonicalizer;
-
-    public function __construct(CanonicalizerInterface $usernameCanonicalizer, CanonicalizerInterface $emailCanonicalizer)
+    public function __construct(private readonly CanonicalizerInterface $usernameCanonicalizer, private readonly CanonicalizerInterface $emailCanonicalizer)
     {
-        $this->usernameCanonicalizer = $usernameCanonicalizer;
-        $this->emailCanonicalizer = $emailCanonicalizer;
     }
 
     public function updateCanonicalFields(UserInterface $user)

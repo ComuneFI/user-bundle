@@ -19,16 +19,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 class FormEvent extends Event
 {
     /**
-     * @var FormInterface
-     */
-    private $form;
-
-    /**
-     * @var Request
-     */
-    private $request;
-
-    /**
      * @var Response
      */
     private $response;
@@ -36,10 +26,8 @@ class FormEvent extends Event
     /**
      * FormEvent constructor.
      */
-    public function __construct(FormInterface $form, Request $request)
+    public function __construct(private readonly FormInterface $form, private readonly Request $request)
     {
-        $this->form = $form;
-        $this->request = $request;
     }
 
     /**

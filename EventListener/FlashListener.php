@@ -33,20 +33,14 @@ class FlashListener implements EventSubscriberInterface {
     private $session;
 
     /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
      * FlashListener constructor.
      *
      * @param RequestStack        $requestStack
      * @param TranslatorInterface $translator
      */
-    public function __construct(RequestStack $requestStack, TranslatorInterface $translator)
+    public function __construct(RequestStack $requestStack, private readonly TranslatorInterface $translator)
     {
         $this->session = $requestStack->getSession();
-        $this->translator = $translator;
     }
 
     /**

@@ -44,7 +44,7 @@ class RegistrationFormTypeTest extends ValidatorExtensionTypeTestCase
     protected function getTypes()
     {
         return array_merge(parent::getTypes(), [
-            new RegistrationFormType('FOS\UserBundle\Tests\TestUser'),
+            new RegistrationFormType(\FOS\UserBundle\Tests\TestUser::class),
         ]);
     }
 }

@@ -22,24 +22,12 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class AuthenticationListener implements EventSubscriberInterface
 {
     /**
-     * @var LoginManagerInterface
-     */
-    private $loginManager;
-
-    /**
-     * @var string
-     */
-    private $firewallName;
-
-    /**
      * AuthenticationListener constructor.
      *
      * @param string $firewallName
      */
-    public function __construct(LoginManagerInterface $loginManager, $firewallName)
+    public function __construct(private readonly LoginManagerInterface $loginManager, private $firewallName)
     {
-        $this->loginManager = $loginManager;
-        $this->firewallName = $firewallName;
     }
 
     /**
@@ -63,7 +51,7 @@ class AuthenticationListener implements EventSubscriberInterface
             $this->loginManager->logInUser($this->firewallName, $event->getUser(), $event->getResponse());
 
             $eventDispatcher->dispatch(new UserEvent($event->getUser(), $event->getRequest()), FOSUserEvents::SECURITY_IMPLICIT_LOGIN);
-        } catch (AccountStatusException $ex) {
+        } catch (AccountStatusException) {
             // We simply do not authenticate users which do not pass the user
             // checker (not enabled, expired, etc.).
         }

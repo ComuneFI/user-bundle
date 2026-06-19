@@ -36,34 +36,17 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  */
 class ResettingController extends AbstractController
 {
-    private $eventDispatcher;
-    private $formFactory;
-    private $userManager;
-    private $tokenGenerator;
-    private $mailer;
-
-    /**
-     * @var int
-     */
-    private $retryTtl;
-
     /**
      * @param int $retryTtl
      */
-    public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, UserManagerInterface $userManager, TokenGeneratorInterface $tokenGenerator, MailerInterface $mailer, $retryTtl)
+    public function __construct(private readonly EventDispatcherInterface $eventDispatcher, private readonly FactoryInterface $formFactory, private readonly UserManagerInterface $userManager, private readonly TokenGeneratorInterface $tokenGenerator, private readonly MailerInterface $mailer, private $retryTtl)
     {
-        $this->eventDispatcher = $eventDispatcher;
-        $this->formFactory = $formFactory;
-        $this->userManager = $userManager;
-        $this->tokenGenerator = $tokenGenerator;
-        $this->mailer = $mailer;
-        $this->retryTtl = $retryTtl;
     }
 
     /**
      * Request reset user password: show form.
      */
-    public function requestAction()
+    public function request()
     {
         return $this->render('@FOSUser/Resetting/request.html.twig');
     }
@@ -73,7 +56,7 @@ class ResettingController extends AbstractController
      *
      * @return Response
      */
-    public function sendEmailAction(Request $request)
+    public function sendEmail(Request $request)
     {
         $username = $request->request->get('username');
 
@@ -125,7 +108,7 @@ class ResettingController extends AbstractController
      *
      * @return Response
      */
-    public function checkEmailAction(Request $request)
+    public function checkEmail(Request $request)
     {
         $username = $request->query->get('username');
 
@@ -146,7 +129,7 @@ class ResettingController extends AbstractController
      *
      * @return Response
      */
-    public function resetAction(Request $request, $token)
+    public function reset(Request $request, $token)
     {
         $user = $this->userManager->findUserByConfirmationToken($token);
 

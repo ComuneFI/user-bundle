@@ -16,38 +16,14 @@ use Symfony\Component\Form\FormFactoryInterface;
 class FormFactory implements FactoryInterface
 {
     /**
-     * @var FormFactoryInterface
-     */
-    private $formFactory;
-
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var string
-     */
-    private $type;
-
-    /**
-     * @var array
-     */
-    private $validationGroups;
-
-    /**
      * FormFactory constructor.
      *
      * @param string $name
      * @param string $type
      * @param array  $validationGroups
      */
-    public function __construct(FormFactoryInterface $formFactory, $name, $type, array $validationGroups = null)
+    public function __construct(private readonly FormFactoryInterface $formFactory, private $name, private $type, private readonly ?array $validationGroups = null)
     {
-        $this->formFactory = $formFactory;
-        $this->name = $name;
-        $this->type = $type;
-        $this->validationGroups = $validationGroups;
     }
 
     /**

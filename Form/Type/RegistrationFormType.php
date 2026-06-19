@@ -21,16 +21,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class RegistrationFormType extends AbstractType
 {
     /**
-     * @var string
-     */
-    private $class;
-
-    /**
      * @param string $class The User class name
      */
-    public function __construct($class)
+    public function __construct(private $class)
     {
-        $this->class = $class;
     }
 
     /**

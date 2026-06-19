@@ -26,21 +26,15 @@ class UserManager extends BaseUserManager
     protected $objectManager;
 
     /**
-     * @var string
-     */
-    private $class;
-
-    /**
      * Constructor.
      *
      * @param string $class
      */
-    public function __construct(PasswordUpdaterInterface $passwordUpdater, CanonicalFieldsUpdater $canonicalFieldsUpdater, EntityManagerInterface $om, $class)
+    public function __construct(PasswordUpdaterInterface $passwordUpdater, CanonicalFieldsUpdater $canonicalFieldsUpdater, EntityManagerInterface $om, private $class)
     {
         parent::__construct($passwordUpdater, $canonicalFieldsUpdater);
 
         $this->objectManager = $om;
-        $this->class = $class;
     }
 
     /**
@@ -57,7 +51,7 @@ class UserManager extends BaseUserManager
      */
     public function getClass()
     {
-        if (false !== strpos($this->class, ':')) {
+        if (str_contains($this->class, ':')) {
             $metadata = $this->objectManager->getClassMetadata($this->class);
             $this->class = $metadata->getName();
         }

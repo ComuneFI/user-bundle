@@ -28,13 +28,8 @@ use FOS\UserBundle\Util\PasswordUpdaterInterface;
  */
 class UserListener implements EventSubscriber
 {
-    private $passwordUpdater;
-    private $canonicalFieldsUpdater;
-
-    public function __construct(PasswordUpdaterInterface $passwordUpdater, CanonicalFieldsUpdater $canonicalFieldsUpdater)
+    public function __construct(private readonly PasswordUpdaterInterface $passwordUpdater, private readonly CanonicalFieldsUpdater $canonicalFieldsUpdater)
     {
-        $this->passwordUpdater = $passwordUpdater;
-        $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
     }
 
     /**
@@ -85,7 +80,7 @@ class UserListener implements EventSubscriber
      */
     private function recomputeChangeSet(EntityManagerInterface $om, UserInterface $user)
     {
-        $meta = $om->getClassMetadata(get_class($user));
+        $meta = $om->getClassMetadata($user::class);
 
         if ($om instanceof EntityManager) {
             $om->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $user);

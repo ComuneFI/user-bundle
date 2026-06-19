@@ -28,13 +28,13 @@ class UserProviderTest extends TestCase
 
     protected function setUp()
     {
-        $this->userManager = $this->getMockBuilder('FOS\UserBundle\Model\UserManagerInterface')->getMock();
+        $this->userManager = $this->getMockBuilder(\FOS\UserBundle\Model\UserManagerInterface::class)->getMock();
         $this->userProvider = new UserProvider($this->userManager);
     }
 
     public function testLoadUserByUsername()
     {
-        $user = $this->getMockBuilder('FOS\UserBundle\Model\UserInterface')->getMock();
+        $user = $this->getMockBuilder(\FOS\UserBundle\Model\UserInterface::class)->getMock();
         $this->userManager->expects($this->once())
             ->method('findUserByUsername')
             ->with('foobar')
@@ -58,7 +58,7 @@ class UserProviderTest extends TestCase
 
     public function testRefreshUserBy()
     {
-        $user = $this->getMockBuilder('FOS\UserBundle\Model\User')
+        $user = $this->getMockBuilder(\FOS\UserBundle\Model\User::class)
                     ->setMethods(['getId'])
                     ->getMock();
 
@@ -66,7 +66,7 @@ class UserProviderTest extends TestCase
             ->method('getId')
             ->will($this->returnValue('123'));
 
-        $refreshedUser = $this->getMockBuilder('FOS\UserBundle\Model\UserInterface')->getMock();
+        $refreshedUser = $this->getMockBuilder(\FOS\UserBundle\Model\UserInterface::class)->getMock();
         $this->userManager->expects($this->once())
             ->method('findUserBy')
             ->with(['id' => '123'])
@@ -74,7 +74,7 @@ class UserProviderTest extends TestCase
 
         $this->userManager->expects($this->atLeastOnce())
             ->method('getClass')
-            ->will($this->returnValue(get_class($user)));
+            ->will($this->returnValue($user::class));
 
         $this->assertSame($refreshedUser, $this->userProvider->refreshUser($user));
     }
@@ -84,14 +84,14 @@ class UserProviderTest extends TestCase
      */
     public function testRefreshDeleted()
     {
-        $user = $this->getMockForAbstractClass('FOS\UserBundle\Model\User');
+        $user = $this->getMockForAbstractClass(\FOS\UserBundle\Model\User::class);
         $this->userManager->expects($this->once())
             ->method('findUserBy')
             ->will($this->returnValue(null));
 
         $this->userManager->expects($this->atLeastOnce())
             ->method('getClass')
-            ->will($this->returnValue(get_class($user)));
+            ->will($this->returnValue($user::class));
 
         $this->userProvider->refreshUser($user);
     }
@@ -101,10 +101,10 @@ class UserProviderTest extends TestCase
      */
     public function testRefreshInvalidUser()
     {
-        $user = $this->getMockBuilder('Symfony\Component\Security\Core\User\UserInterface')->getMock();
+        $user = $this->getMockBuilder(\Symfony\Component\Security\Core\User\UserInterface::class)->getMock();
         $this->userManager->expects($this->any())
             ->method('getClass')
-            ->will($this->returnValue(get_class($user)));
+            ->will($this->returnValue($user::class));
 
         $this->userProvider->refreshUser($user);
     }
@@ -114,12 +114,12 @@ class UserProviderTest extends TestCase
      */
     public function testRefreshInvalidUserClass()
     {
-        $user = $this->getMockBuilder('FOS\UserBundle\Model\User')->getMock();
-        $providedUser = $this->getMockBuilder('FOS\UserBundle\Tests\TestUser')->getMock();
+        $user = $this->getMockBuilder(\FOS\UserBundle\Model\User::class)->getMock();
+        $providedUser = $this->getMockBuilder(\FOS\UserBundle\Tests\TestUser::class)->getMock();
 
         $this->userManager->expects($this->atLeastOnce())
             ->method('getClass')
-            ->will($this->returnValue(get_class($user)));
+            ->will($this->returnValue($user::class));
 
         $this->userProvider->refreshUser($providedUser);
     }

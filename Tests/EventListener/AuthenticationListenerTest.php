@@ -33,13 +33,13 @@ class AuthenticationListenerTest extends TestCase
 
     public function setUp()
     {
-        $user = $this->getMockBuilder('FOS\UserBundle\Model\UserInterface')->getMock();
+        $user = $this->getMockBuilder(\FOS\UserBundle\Model\UserInterface::class)->getMock();
 
-        $response = $this->getMockBuilder('Symfony\Component\HttpFoundation\Response')->getMock();
-        $request = $this->getMockBuilder('Symfony\Component\HttpFoundation\Request')->getMock();
+        $response = $this->getMockBuilder(\Symfony\Component\HttpFoundation\Response::class)->getMock();
+        $request = $this->getMockBuilder(\Symfony\Component\HttpFoundation\Request::class)->getMock();
         $this->event = new FilterUserResponseEvent($user, $request, $response);
 
-        $this->eventDispatcher = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcher')->getMock();
+        $this->eventDispatcher = $this->getMockBuilder(\Symfony\Component\EventDispatcher\EventDispatcher::class)->getMock();
         $this->eventDispatcher
             ->expects($this->once())
             ->method('dispatch');

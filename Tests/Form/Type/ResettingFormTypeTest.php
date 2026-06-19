@@ -40,7 +40,7 @@ class ResettingFormTypeTest extends ValidatorExtensionTypeTestCase
     protected function getTypes()
     {
         return array_merge(parent::getTypes(), [
-            new ResettingFormType('FOS\UserBundle\Tests\TestUser'),
+            new ResettingFormType(\FOS\UserBundle\Tests\TestUser::class),
         ]);
     }
 }

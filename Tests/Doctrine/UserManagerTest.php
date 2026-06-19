@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class UserManagerTest extends TestCase
 {
-    const USER_CLASS = 'FOS\UserBundle\Tests\Doctrine\DummyUser';
+    const USER_CLASS = \FOS\UserBundle\Tests\Doctrine\DummyUser::class;
 
     /** @var UserManager */
     protected $userManager;
@@ -32,8 +32,8 @@ class UserManagerTest extends TestCase
             $this->markTestSkipped('Doctrine Common has to be installed for this test to run.');
         }
 
-        $passwordUpdater = $this->getMockBuilder('FOS\UserBundle\Util\PasswordUpdaterInterface')->getMock();
-        $fieldsUpdater = $this->getMockBuilder('FOS\UserBundle\Util\CanonicalFieldsUpdater')
+        $passwordUpdater = $this->getMockBuilder(\FOS\UserBundle\Util\PasswordUpdaterInterface::class)->getMock();
+        $fieldsUpdater = $this->getMockBuilder(\FOS\UserBundle\Util\CanonicalFieldsUpdater::class)
             ->disableOriginalConstructor()
             ->getMock();
         $class = $this->getMockBuilder('Doctrine\Common\Persistence\Mapping\ClassMetadata')->getMock();

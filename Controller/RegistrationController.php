@@ -37,23 +37,14 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  */
 class RegistrationController extends AbstractController
 {
-    private $eventDispatcher;
-    private $formFactory;
-    private $userManager;
-    private $tokenStorage;
-
-    public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, UserManagerInterface $userManager, TokenStorageInterface $tokenStorage)
+    public function __construct(private readonly EventDispatcherInterface $eventDispatcher, private readonly FactoryInterface $formFactory, private readonly UserManagerInterface $userManager, private readonly TokenStorageInterface $tokenStorage)
     {
-        $this->eventDispatcher = $eventDispatcher;
-        $this->formFactory = $formFactory;
-        $this->userManager = $userManager;
-        $this->tokenStorage = $tokenStorage;
     }
 
     /**
      * @return Response
      */
-    public function registerAction(Request $request)
+    public function register(Request $request)
     {
         $user = $this->userManager->createUser();
         $user->setEnabled(true);
@@ -103,7 +94,7 @@ class RegistrationController extends AbstractController
     /**
      * Tell the user to check their email provider.
      */
-    public function checkEmailAction(Request $request)
+    public function checkEmail(Request $request)
     {
         $email = $request->getSession()->get('fos_user_send_confirmation_email/email');
 
@@ -130,7 +121,7 @@ class RegistrationController extends AbstractController
      *
      * @return Response
      */
-    public function confirmAction(Request $request, $token)
+    public function confirm(Request $request, $token)
     {
         $userManager = $this->userManager;
 
@@ -161,7 +152,7 @@ class RegistrationController extends AbstractController
     /**
      * Tell the user his account is now confirmed.
      */
-    public function confirmedAction(Request $request)
+    public function confirmed(Request $request)
     {
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {

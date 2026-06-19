@@ -24,16 +24,10 @@ use Symfony\Component\PasswordHasher\LegacyPasswordHasherInterface;
 class PasswordUpdater implements PasswordUpdaterInterface
 {
     /**
-     * @var PasswordHasherFactoryInterface
-     */
-    private $passwordHasherFactory;
-
-    /**
      * @param PasswordHasherFactoryInterface $passwordHasherFactory
      */
-    public function __construct(PasswordHasherFactoryInterface $passwordHasherFactory)
+    public function __construct(private readonly PasswordHasherFactoryInterface $passwordHasherFactory)
     {
-        $this->passwordHasherFactory = $passwordHasherFactory;
     }
 
     /**
@@ -73,7 +67,7 @@ class PasswordUpdater implements PasswordUpdaterInterface
         /** @var string $bytes */
         try {
             $bytes = random_bytes(32);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $bytes = '';
         }
 

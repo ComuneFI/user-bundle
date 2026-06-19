@@ -22,13 +22,9 @@ class ChangePasswordCommand extends Command
 {
     protected static $defaultName = 'fos:user:change-password';
 
-    private $userManipulator;
-
-    public function __construct(UserManipulator $userManipulator)
+    public function __construct(private readonly UserManipulator $userManipulator)
     {
         parent::__construct();
-
-        $this->userManipulator = $userManipulator;
     }
 
     /**

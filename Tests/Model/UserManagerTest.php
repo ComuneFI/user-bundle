@@ -27,8 +27,8 @@ class UserManagerTest extends TestCase
 
     protected function setUp()
     {
-        $this->passwordUpdater = $this->getMockBuilder('FOS\UserBundle\Util\PasswordUpdaterInterface')->getMock();
-        $this->fieldsUpdater = $this->getMockBuilder('FOS\UserBundle\Util\CanonicalFieldsUpdater')
+        $this->passwordUpdater = $this->getMockBuilder(\FOS\UserBundle\Util\PasswordUpdaterInterface::class)->getMock();
+        $this->fieldsUpdater = $this->getMockBuilder(\FOS\UserBundle\Util\CanonicalFieldsUpdater::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -172,7 +172,7 @@ class UserManagerTest extends TestCase
      */
     private function getUser()
     {
-        return $this->getMockBuilder('FOS\UserBundle\Model\User')
+        return $this->getMockBuilder(\FOS\UserBundle\Model\User::class)
             ->getMockForAbstractClass();
     }
 
@@ -181,7 +181,7 @@ class UserManagerTest extends TestCase
      */
     private function getUserManager(array $args)
     {
-        return $this->getMockBuilder('FOS\UserBundle\Model\UserManager')
+        return $this->getMockBuilder(\FOS\UserBundle\Model\UserManager::class)
             ->setConstructorArgs($args)
             ->getMockForAbstractClass();
     }

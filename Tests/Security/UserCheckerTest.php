@@ -56,7 +56,7 @@ class UserCheckerTest extends TestCase
 
         try {
             $this->assertNull($checker->checkPreAuth($userMock));
-        } catch (\Exception $ex) {
+        } catch (\Exception) {
             $this->fail();
         }
     }
@@ -79,14 +79,14 @@ class UserCheckerTest extends TestCase
 
         try {
             $this->assertNull($checker->checkPostAuth($userMock));
-        } catch (\Exception $ex) {
+        } catch (\Exception) {
             $this->fail();
         }
     }
 
     private function getUser($isAccountNonLocked, $isEnabled, $isAccountNonExpired, $isCredentialsNonExpired)
     {
-        $userMock = $this->getMockBuilder('FOS\UserBundle\Model\User')->getMock();
+        $userMock = $this->getMockBuilder(\FOS\UserBundle\Model\User::class)->getMock();
         $userMock
             ->method('isAccountNonLocked')
             ->willReturn($isAccountNonLocked);

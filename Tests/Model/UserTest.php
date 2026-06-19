@@ -83,7 +83,7 @@ class UserTest extends TestCase
     {
         $user = $this->getUser();
         $this->assertTrue($user->isEqualTo($user));
-        $this->assertFalse($user->isEqualTo($this->getMockBuilder('FOS\UserBundle\Model\UserInterface')->getMock()));
+        $this->assertFalse($user->isEqualTo($this->getMockBuilder(\FOS\UserBundle\Model\UserInterface::class)->getMock()));
 
         $user2 = $this->getUser();
         $user2->setPassword('secret');
@@ -103,6 +103,6 @@ class UserTest extends TestCase
      */
     protected function getUser()
     {
-        return $this->getMockForAbstractClass('FOS\UserBundle\Model\User');
+        return $this->getMockForAbstractClass(\FOS\UserBundle\Model\User::class);
     }
 }

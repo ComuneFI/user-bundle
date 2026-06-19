@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-abstract class User implements UserInterface
+abstract class User implements UserInterface, \Stringable
 {
     /**
      * @var mixed
@@ -106,7 +106,7 @@ abstract class User implements UserInterface
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->getUsername();
     }
@@ -162,16 +162,7 @@ abstract class User implements UserInterface
             $data = array_values($data);
         }
 
-        list(
-            $this->password,
-            $this->salt,
-            $this->usernameCanonical,
-            $this->username,
-            $this->enabled,
-            $this->id,
-            $this->email,
-            $this->emailCanonical
-        ) = $data;
+        [$this->password, $this->salt, $this->usernameCanonical, $this->username, $this->enabled, $this->id, $this->email, $this->emailCanonical] = $data;
     }
 
     /**

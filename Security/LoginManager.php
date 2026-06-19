@@ -28,26 +28,6 @@ use Symfony\Component\Security\Http\Session\SessionAuthenticationStrategyInterfa
 class LoginManager implements LoginManagerInterface
 {
     /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
-
-    /**
-     * @var UserCheckerInterface
-     */
-    private $userChecker;
-
-    /**
-     * @var SessionAuthenticationStrategyInterface
-     */
-    private $sessionStrategy;
-
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
-
-    /**
      * @var RememberMeServicesInterface
      */
     private $rememberMeService;
@@ -55,15 +35,11 @@ class LoginManager implements LoginManagerInterface
     /**
      * LoginManager constructor.
      */
-    public function __construct(TokenStorageInterface $tokenStorage, UserCheckerInterface $userChecker,
-                                SessionAuthenticationStrategyInterface $sessionStrategy,
-                                RequestStack $requestStack,
+    public function __construct(private readonly TokenStorageInterface $tokenStorage, private readonly UserCheckerInterface $userChecker,
+                                private readonly SessionAuthenticationStrategyInterface $sessionStrategy,
+                                private readonly RequestStack $requestStack,
                                 RememberMeServicesInterface $rememberMeService = null
     ) {
-        $this->tokenStorage = $tokenStorage;
-        $this->userChecker = $userChecker;
-        $this->sessionStrategy = $sessionStrategy;
-        $this->requestStack = $requestStack;
         $this->rememberMeService = $rememberMeService;
     }
 
